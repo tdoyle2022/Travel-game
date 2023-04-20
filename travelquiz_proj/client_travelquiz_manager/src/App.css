@@ -59,7 +59,7 @@ body {
   overflow: hidden;
 }
 
-.columnUl {
+/* .columnUl {
   width: 100%;
   list-style: none;
   padding: 8px;
@@ -67,7 +67,7 @@ body {
 
   display: flex;
   flex-direction: column;
-}
+} */
 
 .li {
   margin-bottom: 12px;

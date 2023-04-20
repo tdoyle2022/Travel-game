@@ -1,79 +1,44 @@
 import ReactDOM from "react-dom";
 import React, { Fragment, useEffect, useState } from "react";
 import "../App.css"
+import { Link } from "react-router-dom";
 // import "./style.css";
 import { createApi } from "unsplash-js";
+import { NavBar } from "../components/Navbar";
+import { HomeImg } from "../components/HomeImg";
+// import { SignUp } from "../components/SignUp"
+// import { useContext } from "react";
+// import { currUser, logOut } from "../utilities";
+import App from "../App";
+// import { UserContext } from "../App";
+// import { getToken } from "./components/CsrfToken";
+
 export function HomePage() {
+  
+  // const [user, setUser] = useState(null);
+
+  // getToken()
+
+  // useEffect(() => {
+  //   const getCurrUser = async () => {
+  //     setUser(await currUser());
+  //   };
+  //   getCurrUser();
+  // }, []);
+
+  // const user = useContext(UserContext);
+  // const setUser = useContext(UserContext)
+
   return (
-    <div>
-      HomePage
-    </div>
+    <>
+    {/* <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+            <h1 style={{fontFamily: 'cursive'}}>HELLO {currUser && currUser.name}</h1>
+            <button onClick={()=>logOut(setUser)}>LOG OUT</button>
+    </div> */}
+    <NavBar />
+    <HomeImg />
+    <Link to={'/signup'}>Sign UP  </Link>
+    <h1>Choose a <Link to='/quiz'>Quiz!</Link></h1>
+    </>
   )
 }
-
-const api = createApi({
-  accessKey: ""
-});
-
-const PhotoComp = ({ photo }) => {
-  const { user, urls } = photo;
-
-  return (
-    <Fragment>
-      <img className="img" src={urls.regular} />
-      <a
-        className="credit"
-        target="_blank"
-        href={`https://unsplash.com/@${user.username}`}
-      >
-        {user.name}
-      </a>
-    </Fragment>
-  );
-};
-
-const Body = () => {
-  const [data, setPhotosResponse] = useState(null);
-
-  useEffect(() => {
-    api.search
-      .getPhotos({ query: "chicago", orientation: "landscape" })
-      .then(result => {
-        setPhotosResponse(result);
-      })
-      .catch(() => {
-        console.log("something went wrong!");
-      });
-  }, []);
-
-  if (data === null) {
-    return <div>Loading...</div>;
-  } else if (data.errors) {
-    return (
-      <div>
-        <div>{data.errors[0]}</div>
-        <div>PS: Make sure to set your access token!</div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="feed">
-        <ul className="columnUl">
-          {data.response.results.map(photo => (
-            <li key={photo.id} className="li">
-              <PhotoComp photo={photo} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-};
-
-const Home = () => {
-  return (
-    <main className="root">
-      <Body />
-    </main>
-  );
-};

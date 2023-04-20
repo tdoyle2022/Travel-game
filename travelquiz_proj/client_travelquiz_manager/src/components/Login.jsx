@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import axios from 'axios'
-
 import { useNavigate } from 'react-router-dom'
+import { NavBar } from "./Navbar";
+import { HomeImg } from "./HomeImg";
 
 export const Login = () => {
 
@@ -16,6 +17,9 @@ export const Login = () => {
 
     }
     return (
+        <>
+        <NavBar />
+        <HomeImg />
         <form onSubmit={handleSubmit(login)}>
             <h3>Log In</h3>
             <input {...register("email")} placeholder="email"/>
@@ -23,6 +27,7 @@ export const Login = () => {
             <input type="submit" />
 
         </form>
+        </>
     )
 }
 export default Login
