@@ -1,10 +1,26 @@
+import { useForm } from "react-hook-form";
+import axios from 'axios'
+
+import { useNavigate } from 'react-router-dom'
+
 export const Login = () => {
+
+    const navigate = useNavigate()
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    async function login(loginData) {
+        const response = await axios.put('users/'
+            , loginData)
+            if (response.status == 200)
+            {(navigate('/home'))}
+            else {(error => console.log(error))}
+
+    }
     return (
-        <form>
+        <form onSubmit={handleSubmit(login)}>
             <h3>Log In</h3>
-            <input placeholder="email"/>
-            <input placeholder="password" type='password'/>
-            <input type="submit" value='login'/>
+            <input {...register("email")} placeholder="email"/>
+            <input {...register("password")} placeholder="password" type='password'/>
+            <input type="submit" />
 
         </form>
     )
