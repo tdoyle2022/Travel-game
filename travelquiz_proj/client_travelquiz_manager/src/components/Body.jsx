@@ -1,47 +1,93 @@
-import { PhotoComp } from "./PhotoComp";
-import { createApi } from "unsplash-js";
-import { useState, useEffect} from 'react'
-import { Fragment } from "react";
+import React, { useState, useEffect } from 'react';
+import { createApi } from 'unsplash-js';
 
-const api = createApi({
-    accessKey: "pjUOdzFAHYEo3oj1dmiPFxOmbN-hTAUGkO1AkxMlXqM"
-  });
-  
+const unsplash = createApi({
+  accessKey: ''
+});
+
+const cities = ['chicago', 'miami', 'orlando', 'dallas', 'columbus', 'seattle', 'denver', 'boise', 'phoenix', 'jackson'];
+const countries = ['usa', 'canada', 'mexico', 'spain', 'france', 'italy', 'germany', 'japan', 'australia', 'new zealand'];
+
 export const Body = () => {
-    const [data, setPhotosResponse] = useState(null);
+  const [photos, setPhotos] = useState([]);
+    const [locationType, setLocationType] = useState('cities'); // Default to cities
   
     useEffect(() => {
-      api.search
-        .getPhotos({ query: "amsterdam", orientation: "landscape" })
-        .then(result => {
-          setPhotosResponse(result);
-        })
-        .catch(() => {
-          console.log("something went wrong!");
+      const locations = locationType === 'cities' ? cities : countries;
+      const promises = [];
+  
+      for (let i = 0; i < locations.length; i++) {
+        const location = locations[i];
+        promises.push(
+          unsplash.photos.getRandom({
+            query: location,
+            orientation: 'landscape',
+          }).then(result => ({ ...result, location }))
+        );
+      }
+  
+      Promise.all(promises).then(async results => {
+        const newPhotos = results.map(result => {
+          if (result.errors || !result.response) {
+            console.log('error occurred: ', result.errors[0]);
+            return null;
+          } else {
+            return { photo: result.response, location: result.location };
+          }
         });
-    }, []);
   
-    if (data === null) {
-      return <div>Loading...</div>;
-    } else if (data.errors) {
-      return (
-        <div>
-          <div>{data.errors[0]}</div>
-          <div>PS: Make sure to set your access token!</div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="feed">
-          <ul className="columnUl">
-            {data.response.results.map(photo => (
-              <li key={photo.id} className="li">
-                <PhotoComp photo={photo} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    }
+        setPhotos(newPhotos);
+      });
+    }, [locationType]);
+  
+    const handleLocationTypeChange = e => {
+      setLocationType(e.target.value);
+    };
+  
+
+  const generateOptions = (correctLocation) => {
+    const locations = locationType === 'cities' ? cities : countries;
+    const shuffledLocations = locations.sort(() => Math.random() - 0.5);
+    const options = shuffledLocations.filter((location) => location !== correctLocation).slice(0, 3);
+    const correctIndex = Math.floor(Math.random() * 4);
+    options.splice(correctIndex, 0, correctLocation);
+    return options;
+  };
+
+  return (
+      <div>
+      <div>
+        <label>
+          <input type="radio" name="locationType" value="cities" checked={locationType === 'cities'} onChange={handleLocationTypeChange} />
+          Cities
+        </label>
+        <label>
+          <input type="radio" name="locationType" value="countries" checked={locationType === 'countries'} onChange={handleLocationTypeChange} />
+          Countries
+        </label>
+      </div>
+      <div className="photo-grid">
+        {photos.map((photoObj, index) => (
+          <div key={index} className="photo-container">
+            {photoObj && photoObj.photo ? (
+              <>
+                <img src={photoObj.photo.urls.regular} alt={photoObj.photo.alt_description} />
+                <p>Photo by {photoObj.photo.user.name} on Unsplash</p>
+                {/* <p>{locationType === 'cities' ? 'City' : 'Country'}: {photoObj.location}</p> */}
+                <div className="buttons-container">
+                  {generateOptions(photoObj.location).map((option, i) => (
+                    <button key={i} className={option === photoObj.location ? 'correct-option' : 'incorrect-option'}>
+                      {option}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="error-message">Error loading photo</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
-  

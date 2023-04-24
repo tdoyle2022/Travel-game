@@ -4,6 +4,7 @@ import { SignUp } from './components/SignUp';
 import { Login } from './components/Login';
 import { HomePage } from './pages/HomePage';
 import { Quiz } from './pages/Quiz';
+import { QuizCategories } from './pages/QuizCategories';
 
 const Router = createBrowserRouter([{
     path: '/',
@@ -28,6 +29,10 @@ const Router = createBrowserRouter([{
         {
             path:"/signup",
             element: <SignUp />
+        },
+        {
+            path:"/quizcategories",
+            element: <QuizCategories />
         },
     ]
 }])
