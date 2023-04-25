@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { createApi } from 'unsplash-js';
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+// const apiKey = process.env.UNSPLASH_ACCESS_KEY;
 
 const unsplash = createApi({
   accessKey: ''
