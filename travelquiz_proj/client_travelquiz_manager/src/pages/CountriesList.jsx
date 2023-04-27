@@ -19,15 +19,18 @@ export const CountriesList = () => {
     fetchCountries();
   }, []);
 
-  return (
-    <div>
-      <h1>Countries List</h1>
-      <ul>
-        {countries.map((country, index) => (
-          <li key={index}>{country}</li>
-        ))}
-      </ul>
-      <Link to='/'>Home</Link>
-    </div>
-  );
+return (
+  <div>
+    <Link to='/'>Home</Link>
+    <h1>Countries List</h1>
+    <ul>
+      {countries.map((country, index) => (
+        <li key={index}>
+          <Link to={`/countries/${country}`}>{country}</Link>
+        </li>
+      ))}
+    </ul>
+    <Link to='/'>Home</Link>
+  </div>
+);
 }

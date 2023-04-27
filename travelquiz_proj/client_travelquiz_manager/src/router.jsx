@@ -7,6 +7,8 @@ import { Quiz } from './pages/Quiz';
 import { QuizCategories } from './pages/QuizCategories';
 import { CountriesList } from './pages/CountriesList';
 import { CapitalsList } from './pages/CapitalsList';
+import { ScoreList } from './pages/ScoreList';
+import { CountryDetails } from './components/CountryDetails'
 
 const Router = createBrowserRouter([{
     path: '/',
@@ -43,6 +45,14 @@ const Router = createBrowserRouter([{
         {
             path:"/capitalslist",
             element: <CapitalsList />
+        },
+        {
+            path:"/scorelist",
+            element: <ScoreList />
+        },
+        {
+            path:"/countries/:name",
+            element: <CountryDetails />
         },
     ]
 }])

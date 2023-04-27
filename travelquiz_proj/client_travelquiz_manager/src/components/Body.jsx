@@ -3,6 +3,7 @@ import { createApi } from 'unsplash-js';
 import axios from 'axios';
 import { useContext } from 'react';
 import { UserContext } from '../App';
+import { Link } from 'react-router-dom';
 // import dotenv from 'dotenv';
 // dotenv.config();
 
@@ -137,10 +138,8 @@ export const Body = () => {
               <>
                 <img src={photoObj.photo.urls.regular} alt={photoObj.photo.alt_description} />
                 <p>Photo by {photoObj.photo.user.name} on Unsplash</p>
-                {/* <p>{locationType === 'cities' ? 'City' : 'Country'}: {photoObj.location}</p> */}
                 <div className="buttons-container">
                 {optionsList[index] && optionsList[index].map((option, i) => (
-                  // {generateOptions(photoObj.location).map((option, i) => (
                     <button key={i} className={selectedButtons[index] === i ? "selected-option" : option === photoObj.location ? 'correct-option' : 'incorrect-option'}
                     onClick={() => handleOptionClick(index, option, i)}>
                       {option}
@@ -155,7 +154,7 @@ export const Body = () => {
         ))}
       </div>
       <button className="submit-button" onClick={handleSubmit}>
-        Submit Score
+      <Link to="/scorelist">Submit Score</Link>
       </button>
     </div>
   );
