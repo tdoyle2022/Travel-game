@@ -27,7 +27,13 @@ export function CountryDetails() {
       <p>Capital: {country.capital}</p>
       <p>Currency: {country.currency}</p>
       <p>Population: {country.population}</p>
+      {country.media.emblem && (
+      <img src={country.media.emblem} alt={`${country.name} emblem`} style={{width: '150px'}} />
+      )}
+      <p>Emblem</p>
+      <div>
       <Link to='/countrieslist'>Back to Countries List</Link>
+      </div>
     </div>
   ) : (
     <p>Loading...</p>

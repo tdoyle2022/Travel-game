@@ -4,10 +4,6 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { UserContext } from '../App';
 import { Link } from 'react-router-dom';
-// import dotenv from 'dotenv';
-// dotenv.config();
-
-// const apiKey = process.env.UNSPLASH_ACCESS_KEY;
 
 const unsplash = createApi({
   accessKey: ''
@@ -118,6 +114,7 @@ export const Body = () => {
     options.splice(correctIndex, 0, correctLocation);
     return options;
   };
+
 
   return (
       <div>

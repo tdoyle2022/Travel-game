@@ -9,8 +9,8 @@ export const CapitalsList = () => {
     async function fetchCapitals() {
       try {
         const response = await axios.get('https://api.sampleapis.com/countries/countries');
-        const capitalNames = response.data.map(country => country.capital);
-        setCapitals(capitalNames);
+        const capitalsData = response.data.map(country => `${country.name}: ${country.capital}`);
+        setCapitals(capitalsData);
       } catch (error) {
         console.error('Error fetching capitals:', error);
       }
@@ -21,8 +21,9 @@ export const CapitalsList = () => {
 
   return (
     <div>
+      <Link to='/'>Home</Link>
       <h1>Capitals List</h1>
-      <ul>
+      <ul style={{ listStyleType: 'none' }}>
         {capitals.map((capital, index) => (
           <li key={index}>{capital}</li>
         ))}
@@ -30,4 +31,4 @@ export const CapitalsList = () => {
       <Link to='/'>Home</Link>
     </div>
   );
-}
+};

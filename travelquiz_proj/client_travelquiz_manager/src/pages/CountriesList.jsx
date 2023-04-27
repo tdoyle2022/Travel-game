@@ -23,7 +23,7 @@ return (
   <div>
     <Link to='/'>Home</Link>
     <h1>Countries List</h1>
-    <ul>
+    <ul style={{ listStyleType: 'none' }}>
       {countries.map((country, index) => (
         <li key={index}>
           <Link to={`/countries/${country}`}>{country}</Link>
@@ -34,3 +34,5 @@ return (
   </div>
 );
 }
+
+

@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { CountriesList } from "./CountriesList";
-import { CapitalsList } from "./CapitalsList"
 
 export const QuizCategories = () => {
     return (
