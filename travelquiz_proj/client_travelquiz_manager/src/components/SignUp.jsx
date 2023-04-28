@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { signUp } from '../utilities'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
-// import { NavBar } from './Navbar'
 import { HomeImg } from './HomeImg'
 
 export const SignUp = () => {

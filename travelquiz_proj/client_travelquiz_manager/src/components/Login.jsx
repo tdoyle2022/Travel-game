@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { NavBar } from "./Navbar";
 import { HomeImg } from "./HomeImg";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
 
@@ -25,7 +26,7 @@ export const Login = () => {
             <input {...register("email")} placeholder="email"/>
             <input {...register("password")} placeholder="password" type='password'/>
             <input type="submit" />
-
+            <Link to='/'></Link>
         </form>
         </>
     )

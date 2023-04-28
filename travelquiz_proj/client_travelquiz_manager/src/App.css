@@ -87,3 +87,8 @@ body {
   text-decoration-line: underline;
   color: #b3b3b3;
 }
+
+.selected-option {
+  background-color: green;
+  /* Add any other styles you want for the selected button */
+}
