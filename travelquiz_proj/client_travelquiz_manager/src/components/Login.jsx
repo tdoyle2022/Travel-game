@@ -19,8 +19,8 @@ export const Login = () => {
     }
     return (
         <>
-        <NavBar />
-        <HomeImg />
+        {/* <NavBar /> */}
+        {/* <HomeImg /> */}
         <form onSubmit={handleSubmit(login)}>
             <h3>Log In</h3>
             <input {...register("email")} placeholder="email"/>

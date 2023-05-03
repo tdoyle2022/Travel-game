@@ -15,6 +15,7 @@ def home(request):
 
 @api_view(['POST'])
 def submit_quiz(request):
+    print(request.data)
     save_user_results(request.data, request)
     return HttpResponse("connected")
 

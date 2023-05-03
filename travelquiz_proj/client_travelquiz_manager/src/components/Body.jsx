@@ -9,8 +9,17 @@ const unsplash = createApi({
   accessKey: ''
 });
 
-const cities = ['chicago', 'miami', 'orlando', 'dallas', 'columbus', 'seattle', 'denver', 'boise', 'phoenix', 'jackson'];
-const countries = ['usa', 'canada', 'mexico', 'spain', 'france', 'italy', 'germany', 'japan', 'australia', 'new zealand'];
+const cities = [
+  'chicago', 'miami', 'orlando', 'dallas', 'columbus', 'seattle', 'denver', 'boise', 'phoenix', 'jackson',
+  'atlanta', 'boston', 'new york', 'los angeles', 'san francisco', 'austin', 'portland', 'san diego', 'philadelphia', 'indianapolis',
+  'houston', 'nashville', 'charlotte', 'baltimore', 'detroit', 'louisville', 'kansas city', 'minneapolis', 'pittsburgh', 'tampa'
+];
+
+const countries = [
+  'usa', 'canada', 'mexico', 'spain', 'france', 'italy', 'germany', 'japan', 'australia', 'new zealand',
+  'brazil', 'argentina', 'india', 'china', 'russia', 'switzerland', 'netherlands', 'uk', 'ireland', 'sweden',
+  'norway', 'finland', 'denmark', 'poland', 'south korea', 'thailand', 'vietnam', 'singapore', 'malaysia', 'philippines'
+];
 
 export const Body = () => {
   const { user } = useContext(UserContext);
@@ -49,14 +58,21 @@ export const Body = () => {
     console.log('User selections:', userSelections);
     setSelectedButtons([]);
     
+   
     const userSelectionsData = JSON.stringify({ user_selections: userSelections });
     const parsedUserSelections = JSON.parse(userSelectionsData.replace(/\\/g, ""));
+
+    // const user_scores_data = scores[scores.length - 1].fields;
+    // const parsedUserSelections = JSON.parse(user_scores_data.user_selections);
+    // const parsedCorrectAnswers = JSON.parse(user_scores_data.correct_answers);
+  
     
     try {
       const response = await axios.post('/api/submit_quiz/', {
         user: user,
         user_selections: parsedUserSelections.user_selections,
         score: score,
+        correct_answers: correctAnswers,
       });
   
       if (response.status === 200) {
@@ -68,20 +84,25 @@ export const Body = () => {
       console.error('Error saving user selections:', error);
     }
   };
+
+  const getRandomElements = (arr, n) => {
+    const shuffled = arr.slice().sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, n);
+  };
   
     useEffect(() => {
-      const locations = locationType === 'cities' ? cities : countries;
+      const locations = locationType === 'cities' ? getRandomElements(cities, 10) : getRandomElements(countries, 10);
       const promises = [];
-  
-      for (let i = 0; i < locations.length; i++) {
-        const location = locations[i];
-        promises.push(
-          unsplash.photos.getRandom({
-            query: location,
-            orientation: 'landscape',
-          }).then(result => ({ ...result, location }))
-        );
-      }
+
+    for (let i = 0; i < locations.length; i++) {
+      const location = locations[i];
+      promises.push(
+        unsplash.photos.getRandom({
+          query: location,
+          orientation: 'landscape',
+        }).then(result => ({ ...result, location }))
+      );
+    }
   
       Promise.all(promises).then(async results => {
         const newPhotos = results.map(result => {

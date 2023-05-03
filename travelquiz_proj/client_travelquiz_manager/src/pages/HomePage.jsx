@@ -6,10 +6,12 @@ export function HomePage() {
   
   return (
     <>
-    <NavBar />
-    <HomeImg />
+    <main style={{marginTop: '300px', marginBottom: '2rem'}}>
+    {/* <NavBar /> */}
+    {/* <HomeImg /> */}
     <Link to={'/signup'}>Sign UP  </Link>
-    <h1>Choose a <Link to='/quizcategories'>Quiz!</Link></h1>
+    <h1 style={{color: 'orangered'}}>Choose a <Link to='/quizcategories'>Quiz!</Link></h1>
+    </main>
     </>
   )
 }
