@@ -6,7 +6,7 @@ import { UserContext } from '../App';
 import { Link } from 'react-router-dom';
 
 const unsplash = createApi({
-  accessKey: ''
+  accessKey: 'pjUOdzFAHYEo3oj1dmiPFxOmbN-hTAUGkO1AkxMlXqM'
 });
 
 const cities = [
