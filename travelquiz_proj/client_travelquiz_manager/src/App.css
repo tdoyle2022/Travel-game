@@ -44,6 +44,9 @@
 
 html,
 body {
+  background-image: url('https://img.freepik.com/free-vector/road-trip-by-car-summer-vacation-travel-trip_107791-9489.jpg?size=626&ext=jpg');
+  background-size: cover;
+  background-position: center;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -58,16 +61,6 @@ body {
   width: 500px;
   overflow: hidden;
 }
-
-/* .columnUl {
-  width: 100%;
-  list-style: none;
-  padding: 8px;
-  margin: 0;
-
-  display: flex;
-  flex-direction: column;
-} */
 
 .li {
   margin-bottom: 12px;
@@ -91,4 +84,8 @@ body {
 .selected-option {
   background-color: green;
   /* Add any other styles you want for the selected button */
+}
+
+.btn-outline-success {
+  --bs-btn-bg-color: red;
 }

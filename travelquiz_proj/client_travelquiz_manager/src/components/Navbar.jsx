@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-export const NavBar = () => {
+export const NavBar = ({user}) => {
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
@@ -14,9 +14,9 @@ export const NavBar = () => {
   };
     return (
         <>
-    <header>
-        <h2>Travel Quiz</h2>
-        <nav class="navbar navbar-expand-lg">
+    <header style={{marginTop: '0px'}}>
+        {/* <h2>Travel Quiz</h2> */}
+        <nav class="navbar navbar-expand-lg" style={{marginTop: '100px'}}>
           <a class="navbar-brand" href="/home"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -62,6 +62,7 @@ export const NavBar = () => {
             </form>
           </div>
         </nav>
+      <h2 style={{fontFamily: 'cursive', marginTop: '100px', fontSize: '100px'}}>{user && user.name}'s Travel Quiz</h2>
     </header>
     </>
     )
